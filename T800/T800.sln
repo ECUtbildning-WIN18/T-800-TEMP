@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T800", "T800\T800.csproj", "{17EECDD7-D2E4-45D8-8DF2-7FFAA04A4536}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17EECDD7-D2E4-45D8-8DF2-7FFAA04A4536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17EECDD7-D2E4-45D8-8DF2-7FFAA04A4536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17EECDD7-D2E4-45D8-8DF2-7FFAA04A4536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17EECDD7-D2E4-45D8-8DF2-7FFAA04A4536}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
