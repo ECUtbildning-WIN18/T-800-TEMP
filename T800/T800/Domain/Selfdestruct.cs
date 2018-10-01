@@ -18,7 +18,8 @@ namespace T800.Domain
                 Console.WriteLine("     |                                |");
                 Console.WriteLine("     +--------------------------------+");
                 //Progressbar
-                Console.Write("Starting Self-Destruction... ");
+                Console.WriteLine("Preparing for Self-Destruction..");
+                Console.Write("Self-Destruction... ");
                 using (var progress = new ProgressBar())
                 {
                     for (int i = 0; i <= 100; i++)
@@ -27,7 +28,7 @@ namespace T800.Domain
                         Thread.Sleep(20);
                     }
                 }
-                Console.WriteLine("Succesfully Terminated.");
+                Console.WriteLine("Robot Succesfully Terminated.");
                 //Terminated-art
                 Console.WriteLine("      NO!                           MNO!");
                 Console.WriteLine("     MNO!!         [NBK]           MNNOO!");
