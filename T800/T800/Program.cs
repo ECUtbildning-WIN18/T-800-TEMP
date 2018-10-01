@@ -9,6 +9,8 @@ namespace T800
 {
     class Program
     {
+        public static Domain.Robot KillingMachine9000;
+
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
@@ -16,12 +18,12 @@ namespace T800
             /*
              * 1. login
              * 2. exit
-             * *
+             * * \/ Logged in
              * 1. Create list
              * 2. Upload list
              * 3. Activate/Deactivate
-             * 4. Self-destruct
-             * 5. Logout
+             * 4. Status
+             * 5. Self-destruct
              * 0. Exit
              */
         }
@@ -98,16 +100,19 @@ namespace T800
             switch (choice)
             {
                 case ConsoleKey.D1:
+                    //Create list - Paula
                     break;
                 case ConsoleKey.D2:
+                    //Assign list to robot - Paula
                     break;
                 case ConsoleKey.D3:
+                    //Activate/Deactivate robot - Robin
                     break;
                 case ConsoleKey.D4:
+                    //See status of robot - Ryan
                     break;
                 case ConsoleKey.D5:
-                    break;
-                case ConsoleKey.D6:
+                    //Self destruct - Anders
                     break;
                 case ConsoleKey.Escape:
                     PreLoginMenu();
@@ -204,10 +209,13 @@ namespace T800
                     }
                     WriteAt("TERMINATOR TERMINAL V1.0", 5, 2);
                     WriteAt("You pick 'em, we kill'em!", 5, 3);
-                    WriteAt("LOGGED IN AS: {0}", 5, 6);
+                    WriteAt("LOGGED IN AS: ", 5, 6, Username);
 
-                    WriteAt("USERNAME: ", 11, 10);
-                    WriteAt("PASSWORD: ", 11, 12);
+                    WriteAt("1. CREATE LIST", 11, 10);
+                    WriteAt("2. UPLOAD LIST TO ROBOT", 11, 12);
+                    WriteAt("3. ACTIVATE/DEACTIVATE", 11, 12);
+                    WriteAt("4. STATUS", 11, 12);
+                    WriteAt("5. SELF DESTRUCT", 11, 12);
                     WriteAt("ESC: LOGOUT/BACK", 8, 14);
                     break;
             }
@@ -219,6 +227,20 @@ namespace T800
             {
                 Console.SetCursorPosition(xCoord + x, yCoord + y);
                 Console.Write(s);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.Clear();
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        static void WriteAt(string s, int x, int y, string name)
+        {
+            try
+            {
+                Console.SetCursorPosition(xCoord + x, yCoord + y);
+                Console.Write("{0}{1}", s, name);
             }
             catch (ArgumentOutOfRangeException e)
             {
