@@ -10,8 +10,6 @@ namespace T800.Domain
         public CreateList(string typeName) : base(typeName, "Alive")
         {
             PersonList = new List<Person>();
-            Person p = new Person(typeName, "Alive");
-            AddPerson(p);
         }
 
         public void PrintStatus()
@@ -22,10 +20,11 @@ namespace T800.Domain
             }
         }
 
-        public static void AddPerson(Person typeName)               // typeName = Console.ReadLine();
+        public static void AddPerson(string typeName)               // typeName = Console.ReadLine();
         {                                                           //Had this on program.cs
             Console.WriteLine("Who's the target?");
-            PersonList.Add(typeName);
+            Person p = new Person(typeName, "Alive");
+            PersonList.Add(p);
         }
     }
 }

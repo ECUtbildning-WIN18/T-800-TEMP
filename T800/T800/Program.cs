@@ -28,7 +28,6 @@ namespace T800
     }
 
     public class Menu
-<<<<<<< HEAD
     {
         //x = left, y = top
         //X GROWS LEFT TO RIGHT
@@ -36,18 +35,10 @@ namespace T800
         //We first clear the console to get a base position of the cursor which then allows us to easily define specific
         //cells of the terminal program being used - this is USUALLY the very top left-most cell in the terminal. The menu
         //is then drawn based on that initial location. This location is our 0,0.
-=======
-    {
-        //x = left, y = top
-        //X GROWS LEFT TO RIGHT
-        //Y GROWS TOP TO BOTTOM
-        //We first clear the console to get a base position of the cursor which then allows us to easily define specific
-        //cells of the terminal program being used - this is USUALLY the very top left-most cell in the terminal. The menu
-        //is then drawn based on that initial location. This location is our 0,0.
->>>>>>> US01_Menu
+    
         public static int xCoord, yCoord;
 
-        static readonly int _length = 35;
+        static readonly int _length = 50;
         static readonly int _height = 15;
 
         public static String Username { get; set; }
@@ -81,7 +72,6 @@ namespace T800
 
         public static void LoginMenu()
         {
-<<<<<<< HEAD
             DrawMenu(2);
 
             WriteAt("->", 2, 10);
@@ -97,39 +87,17 @@ namespace T800
             Console.CursorVisible = false;
 
             LoggedInMenu(username, password);
-=======
-            DrawMenu(2);
-
-            WriteAt("->", 2, 10);
-            Console.SetCursorPosition(15, 10);
-            Console.CursorVisible = true;
-            string username = Console.ReadLine();
-            WriteAt("  ", 2, 10);
-
-            WriteAt("->", 2, 12);
-            Console.SetCursorPosition(15, 12);
-            string password = Console.ReadLine();
-            WriteAt("  ", 2, 12);
-            Console.CursorVisible = false;
-
-            LoggedInMenu(username, password);
->>>>>>> US01_Menu
         }
 
         public static void LoggedInMenu(string username, string password)
         {
-<<<<<<< HEAD
-            DrawMenu(3);
-=======
-            DrawMenu(3);
->>>>>>> US01_Menu
-
             Username = username;
-
+            DrawMenu(3);
             choice = Console.ReadKey().Key;
             switch (choice)
             {
                 case ConsoleKey.D1:
+
                     break;
                 case ConsoleKey.D2:
                     break;
@@ -149,11 +117,7 @@ namespace T800
 
         public static void DrawMenu(int menu)
         {
-<<<<<<< HEAD
-            switch (menu)
-=======
             switch(menu)
->>>>>>> US01_Menu
             {
                 case 1: //PRE-LOGIN
                     ClearInside();
@@ -210,12 +174,7 @@ namespace T800
                     WriteAt("TERMINATOR TERMINAL V1.0", 5, 2);
                     WriteAt("You pick 'em, we kill'em!", 5, 3);
                     WriteAt("PLEASE LOG IN TO CONTINUE", 5, 6);
-
-<<<<<<< HEAD
                     WriteAt("USERNAME: ", 4, 10);
-=======
-                    WriteAt("USERNAME: ", 4, 10);
->>>>>>> US01_Menu
                     WriteAt("PASSWORD: ", 4, 12);
                     WriteAt("ESC: BACK", 15, 14);
                     break;
@@ -244,10 +203,13 @@ namespace T800
                     }
                     WriteAt("TERMINATOR TERMINAL V1.0", 5, 2);
                     WriteAt("You pick 'em, we kill'em!", 5, 3);
-                    WriteAt("LOGGED IN AS: {0}", 5, 6);
+                    WriteAt("LOGGED IN AS: " + Username, 5, 6);
 
-                    WriteAt("USERNAME: ", 11, 10);
-                    WriteAt("PASSWORD: ", 11, 12);
+                    WriteAt("1. Create a Kill List", 4, 8);
+                    WriteAt("2. Upload Kill List to current robot", 4, 9);
+                    WriteAt("3. Activate/Deactivate current robot", 4, 10);
+                    WriteAt("4. See details of current robot activity", 4, 11);
+                    WriteAt("5. Self destruct robot **WARNING**", 4, 12);
                     WriteAt("ESC: LOGOUT/BACK", 8, 14);
                     break;
             }
