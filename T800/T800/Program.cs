@@ -28,6 +28,7 @@ namespace T800
     }
 
     public class Menu
+<<<<<<< HEAD
     {
         //x = left, y = top
         //X GROWS LEFT TO RIGHT
@@ -35,6 +36,15 @@ namespace T800
         //We first clear the console to get a base position of the cursor which then allows us to easily define specific
         //cells of the terminal program being used - this is USUALLY the very top left-most cell in the terminal. The menu
         //is then drawn based on that initial location. This location is our 0,0.
+=======
+    {
+        //x = left, y = top
+        //X GROWS LEFT TO RIGHT
+        //Y GROWS TOP TO BOTTOM
+        //We first clear the console to get a base position of the cursor which then allows us to easily define specific
+        //cells of the terminal program being used - this is USUALLY the very top left-most cell in the terminal. The menu
+        //is then drawn based on that initial location. This location is our 0,0.
+>>>>>>> US01_Menu
         public static int xCoord, yCoord;
 
         static readonly int _length = 35;
@@ -71,6 +81,7 @@ namespace T800
 
         public static void LoginMenu()
         {
+<<<<<<< HEAD
             DrawMenu(2);
 
             WriteAt("->", 2, 10);
@@ -86,11 +97,32 @@ namespace T800
             Console.CursorVisible = false;
 
             LoggedInMenu(username, password);
+=======
+            DrawMenu(2);
+
+            WriteAt("->", 2, 10);
+            Console.SetCursorPosition(15, 10);
+            Console.CursorVisible = true;
+            string username = Console.ReadLine();
+            WriteAt("  ", 2, 10);
+
+            WriteAt("->", 2, 12);
+            Console.SetCursorPosition(15, 12);
+            string password = Console.ReadLine();
+            WriteAt("  ", 2, 12);
+            Console.CursorVisible = false;
+
+            LoggedInMenu(username, password);
+>>>>>>> US01_Menu
         }
 
         public static void LoggedInMenu(string username, string password)
         {
+<<<<<<< HEAD
             DrawMenu(3);
+=======
+            DrawMenu(3);
+>>>>>>> US01_Menu
 
             Username = username;
 
@@ -117,7 +149,11 @@ namespace T800
 
         public static void DrawMenu(int menu)
         {
+<<<<<<< HEAD
             switch (menu)
+=======
+            switch(menu)
+>>>>>>> US01_Menu
             {
                 case 1: //PRE-LOGIN
                     ClearInside();
@@ -175,7 +211,11 @@ namespace T800
                     WriteAt("You pick 'em, we kill'em!", 5, 3);
                     WriteAt("PLEASE LOG IN TO CONTINUE", 5, 6);
 
+<<<<<<< HEAD
                     WriteAt("USERNAME: ", 4, 10);
+=======
+                    WriteAt("USERNAME: ", 4, 10);
+>>>>>>> US01_Menu
                     WriteAt("PASSWORD: ", 4, 12);
                     WriteAt("ESC: BACK", 15, 14);
                     break;
