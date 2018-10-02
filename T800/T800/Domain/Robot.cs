@@ -21,7 +21,9 @@ namespace T800.Domain
         public int Core         { get; set; }
         public int Temperature  { get; set; }
 
-        public Robot(string name, int id, bool isAlive)
+        public List<Person> KillList;
+
+        public Robot(string name, int id, bool isAlive, List<Person> killList)
         {
             Name = name;
             ID = id;
@@ -38,6 +40,8 @@ namespace T800.Domain
             LLeg = 10; RLeg = 10;
 
             Temperature = 40;
+
+            KillList = killList;
         }
     }
 }

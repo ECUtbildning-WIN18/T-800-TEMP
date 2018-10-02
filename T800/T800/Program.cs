@@ -10,9 +10,21 @@ namespace T800
     class Program
     {
         public static Domain.Robot KillingMachine9000;
+        public static Domain.Execute Plans;
+        public static Domain.Details Details;
+
+        public static List<Person> HitList;
 
         static void Main(string[] args)
         {
+            #region Debugging region
+            HitList = new List<Person>();
+            Person one = new Person("Ryan");
+            Person two = new Person("Paula");
+            HitList.Add(one);
+            HitList.Add(two);
+            #endregion
+
             Console.CursorVisible = false;
             Menu m = new Menu();
             /*
@@ -92,32 +104,47 @@ namespace T800
 
         public static void LoggedInMenu(string username, string password)
         {
+            Username = username;
             DrawMenu(3);
 
-            Username = username;
-
-            choice = Console.ReadKey().Key;
-            switch (choice)
+            do
             {
-                case ConsoleKey.D1:
-                    //Create list - Paula
-                    break;
-                case ConsoleKey.D2:
-                    //Assign list to robot - Paula
-                    break;
-                case ConsoleKey.D3:
-                    //Activate/Deactivate robot - Robin
-                    break;
-                case ConsoleKey.D4:
-                    //See status of robot - Ryan
-                    break;
-                case ConsoleKey.D5:
-                    //Self destruct - Anders
-                    break;
-                case ConsoleKey.Escape:
-                    PreLoginMenu();
-                    break;
+                choice = Console.ReadKey().Key;
+                switch (choice)
+                {
+                    case ConsoleKey.D1:
+                        //Create list - Paula
+                        //List is created in here, then use the next command to upload it to the robot.
+                        //@@@@@@@@@@@@@@@ADAPT THIS CODE FOR PAULAS METHOD
+                        break;
+                    case ConsoleKey.D2:
+                        //Assign list to robot - Paula
+                        //Here a list is assigned to the robot and attack plans are generated.
+                        //Technically, a class of robot is created here, and then the list created from the previous method is attached.
+                        //With the list and robot in place, the execution plans can be generated.
+                        //@@@@@@@@@@@@@@@ADAPT THIS CODE FOR PAULAS METHOD
+                        Program.KillingMachine9000 = new Domain.Robot("big dick boi 9000", 420691337, true, Program.HitList);
+                        Program.Plans = new Domain.Execute(Program.KillingMachine9000);
+                        break;
+                    case ConsoleKey.D3:
+                        //Activate/Deactivate robot - Robin
+                        //Here we run the background thread task which executes the kill list provided in methods 1 and 2.
+                        //@@@@@@@@@@@@@@@ADAPT THIS CODE FOR ROBINS METHOD
+                        Task t = Task.Run(() => Program.Plans.StartKilling());
+                        break;
+                    case ConsoleKey.D4:
+                        Domain.Details d = new Domain.Details(Program.KillingMachine9000, Program.Plans);
+
+                        break;
+                    case ConsoleKey.D5:
+                        //Self destruct - Anders
+                        break;
+                    case ConsoleKey.Escape:
+                        PreLoginMenu();
+                        break;
+                }
             }
+            while (choice != ConsoleKey.Escape);
         }
 
         public static void DrawMenu(int menu)
@@ -211,12 +238,12 @@ namespace T800
                     WriteAt("You pick 'em, we kill'em!", 5, 3);
                     WriteAt("LOGGED IN AS: ", 5, 6, Username);
 
-                    WriteAt("1. CREATE LIST", 11, 10);
-                    WriteAt("2. UPLOAD LIST TO ROBOT", 11, 12);
-                    WriteAt("3. ACTIVATE/DEACTIVATE", 11, 12);
-                    WriteAt("4. STATUS", 11, 12);
-                    WriteAt("5. SELF DESTRUCT", 11, 12);
-                    WriteAt("ESC: LOGOUT/BACK", 8, 14);
+                    WriteAt("1. CREATE LIST", 3, 8);
+                    WriteAt("2. UPLOAD LIST TO ROBOT", 3, 9);
+                    WriteAt("3. ACTIVATE/DEACTIVATE", 3, 10);
+                    WriteAt("4. STATUS", 3, 11);
+                    WriteAt("5. SELF DESTRUCT", 3, 12);
+                    WriteAt("ESC: LOGOUT/BACK", 7, 14);
                     break;
             }
         }
@@ -267,6 +294,20 @@ namespace T800
                     WriteAt(" ", x, y);
                 }
             }
+        }
+    }
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Health { get; set; }
+        public bool IsAlive  { get; set; }
+
+        public Person(string name)
+        {
+            Name = name;
+            Health = 100;
+            IsAlive = true;
         }
     }
 }
