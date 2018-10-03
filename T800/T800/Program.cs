@@ -13,7 +13,7 @@ namespace T800
         public static Domain.Execute Plans;
         public static Domain.Details Details;
 
-        public static List<Person> HitList;
+        public static List<Domain.Person> HitList;
 
         static void Main(string[] args)
         {

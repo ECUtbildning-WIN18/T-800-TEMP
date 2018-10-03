@@ -7,7 +7,7 @@ namespace T800.Domain
     {
         public static List<Person> PersonList { get; set; } 
 
-        public CreateList(string typeName) : base(typeName, "Alive")
+        public CreateList(string typeName) : base(typeName, true)
         {
             PersonList = new List<Person>();
         }
@@ -16,14 +16,14 @@ namespace T800.Domain
         {
             foreach (var person in PersonList)
             {
-                Console.WriteLine($"{person.Name}, Status: {person.CurrentStatus}");
+                Console.WriteLine($"{person.Name}, Status: {person.IsAlive}");
             }
         }
 
         public static void AddPerson(string typeName)               // typeName = Console.ReadLine();
         {                                                           //Had this on program.cs
             Console.WriteLine("Who's the target?");
-            Person p = new Person(typeName, "Alive");
+            Person p = new Person(typeName, true);
             PersonList.Add(p);
         }
     }

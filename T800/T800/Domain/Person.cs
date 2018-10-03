@@ -6,13 +6,15 @@ namespace T800.Domain
 {
     class Person
     {
-        public string Name { get; }
-        public string CurrentStatus { get; }
+        public string Name { get; set; }
+        public bool IsAlive { get; set; }
+        public int Health { get; set; }
 
-        public Person(string typeName, string currentStatus)
+        public Person(string typeName, bool isAlive)
         {
             Name = typeName;
-            CurrentStatus = currentStatus;
+            IsAlive = isAlive;
+            Health = 100;
         }
     }
 }
