@@ -1,57 +1,70 @@
 ﻿using System;
+
 namespace T800.Domain
 {
     public class Activation
     {
-        public Activation()
+        public Activation(int xCoord, int yCoord)
         {
-            Console.WriteLine("Do you want to activate or deactivate the robot? 1/2");
-            string robot = Console.ReadLine();
-            int nr = Convert.ToInt32(robot);
-            switch (nr)
+            WriteAtJustified("Do you want to activate or deactivate the robot?", 2);
+            WriteAtJustified("1-yes 2-no", 3);
+            ConsoleKey r = Console.ReadKey().Key;
+            switch (r)
             {
-                case 1:
-                    Console.WriteLine("Robot is activated");
+                case ConsoleKey.D1:
+                    WriteAtJustified("Robot is activated", 4);
                     break;
 
-                case 2:
-                    Console.WriteLine("Robot is deactivated");
+                case ConsoleKey.D2:
+                    WriteAtJustified("Robot is deactivated", 4);
                     break;
 
                 default:
-                    Console.WriteLine("Read the instructions again.");
+                    WriteAtJustified("Read the instructions again", 3);
                     break;
             }
-            if (robot == "1")
+            if (r == ConsoleKey.D1)
             {
-                Console.WriteLine("System is warming up, soon I'll be ready to continue on my execution list!");
+                WriteAtJustified("System is warming up", 7);
+                WriteAtJustified("Soon I'll be ready to", 8);
+                WriteAtJustified("continue on my execution list!", 9);
+                WriteAtJustified("Press return to go back", 11);
+                Console.ReadLine();
+                ClearInsideSide();
             }
-            else if (robot == "2")
+            else if (r == ConsoleKey.D2)
             {
-                Console.WriteLine("I'm going into sleepmode. Allow me to take you back to the main menu.");
+                WriteAtJustified("I'm going into sleepmode.", 7);
+                WriteAtJustified("Allow me to take you", 8);
+                WriteAtJustified("back to the main menu.", 9);
+                WriteAtJustified("Press return to go back", 11);
+                Console.ReadLine();
+                ClearInsideSide();
             }
-            //Console.WriteLine("Do you want to activate the robot? y/n");
-            //string robot = Console.ReadLine();
 
+            void WriteAt(string s, int x, int y)
+            {
+                Console.SetCursorPosition(xCoord + x, yCoord + y);
+                Console.Write(s);
+            }
 
-            //if (robot == "Yes" || robot == "y")
-            //{
-            //    Console.WriteLine("You have activated the robot.");
-            //}
-            //else if (robot == "No" || robot == "n")
-            //{
-            //    Console.WriteLine("Do you want to deactivate the robot? y/n");
-            //}
-            //if (robot == "Yes" || robot == "y")
-            //{
-            //    Console.WriteLine("You have deactivated the robot.")
-            //;
-            //}
-            //else if (robot == "No" || robot == "n")
-            //    {
-            //    Console.WriteLine("You chose not to deactivate the robot, you will now return to the main menu");
-            //    }
-            //Console.ReadLine();
+            void WriteAtJustified(string s, int y)
+            {
+                int justifiedX = Convert.ToInt32(Math.Floor((double)(50 - s.Length) / 2));
+                Console.SetCursorPosition(xCoord + justifiedX, yCoord + y);
+                Console.Write(s);
+            }
+
+            void ClearInsideSide()
+            {
+                for (int x = 1; x < 50; x++)
+                {
+                    for (int y = 1; y < 15; y++)
+                    {
+                        WriteAt(" ", x + 50, y);
+                    }
+                }
+            }
         }
     }
 }

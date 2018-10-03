@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace T800.Domain
 {
-    class CreateList : Person
+    class CreateList
     {
-        public static List<Person> PersonList { get; set; } 
+        public List<Person> PersonList { get; set; } 
 
-        public CreateList(string typeName) : base(typeName, true)
+        public CreateList()
         {
             PersonList = new List<Person>();
         }
@@ -20,9 +20,8 @@ namespace T800.Domain
             }
         }
 
-        public static void AddPerson(string typeName)               // typeName = Console.ReadLine();
+        public void AddPerson(string typeName)               // typeName = Console.ReadLine();
         {                                                           //Had this on program.cs
-            Console.WriteLine("Who's the target?");
             Person p = new Person(typeName, true);
             PersonList.Add(p);
         }

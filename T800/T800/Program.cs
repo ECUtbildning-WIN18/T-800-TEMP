@@ -3,20 +3,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace T800
 {
     class Program
     {
-        public static Domain.Robot KillingMachine9000;
-        public static Domain.Execute Plans;
-        public static Domain.Details Details;
-
-        public static List<Domain.Person> HitList;
+        public static Domain.CreateList KillList;
+        public static Domain.Robot BigDickBoi9000;
 
         static void Main(string[] args)
         {
+            KillList = new Domain.CreateList();
+            BigDickBoi9000 = new Domain.Robot("omg im a robot", 420691337, true);
+
             Console.CursorVisible = false;
             Menu m = new Menu();
             /*
@@ -44,12 +43,14 @@ namespace T800
 
         public static int xCoord, yCoord, y;
 
-        public static bool DrawerOut = false;
+        public static bool DrawerOut, SideOut, Arrows;
         static readonly int _length = 50; //These 2 values control the size of the box.
         static readonly int _height = 15; //Changing these values resizes it respective of x and y
 
         public static String Username { get; set; }
         public static String Password { get; set; }
+
+        public static bool Armed;
 
         public static ConsoleKey choice;
 
@@ -102,21 +103,23 @@ namespace T800
             DrawMenu(3);
             while (choice != ConsoleKey.Escape)
             {
+                Console.SetCursorPosition(0, 16);
                 choice = Console.ReadKey().Key;
                 switch (choice)
                 {
                     case ConsoleKey.D1:
-                        UnderBox();
+                        CreateList();
                         break;
                     case ConsoleKey.D2:
+                        UploadList();
                         break;
                     case ConsoleKey.D3:
+                        Activate();
                         break;
                     case ConsoleKey.D4:
                         break;
                     case ConsoleKey.D5:
-                        break;
-                    case ConsoleKey.D6:
+                        SelfD();
                         break;
                     case ConsoleKey.Escape:
                         PreLoginMenu();
@@ -213,7 +216,7 @@ namespace T800
                     WriteAtJustified("You pick 'em, we kill'em!", 3);
                     WriteAtJustified("LOGGED IN AS: " + Username, 6);
 
-                    WriteAt("1. Create a Kill List", 4, 8);
+                    WriteAt("1. Add person to Kill List", 4, 8);
                     WriteAt("2. Upload Kill List to current robot", 4, 9);
                     WriteAt("3. Activate/Deactivate current robot", 4, 10);
                     WriteAt("4. See details of current robot activity", 4, 11);
@@ -221,6 +224,103 @@ namespace T800
                     WriteAtJustified("ESC: LOGOUT", 14);
                     break;
             }
+        }
+
+        public static void CreateList()
+        {
+            ConsoleKey listChoice = ConsoleKey.Spacebar;
+
+            SideBox();
+            AtnArrows();
+            WriteAtJustifiedSide("KILL LIST CREATOR V1", 3);
+            WriteAtJustifiedSide("Enter the name of a person you want to add", 5);
+            while (listChoice != ConsoleKey.Escape)
+            {
+                listChoice = ConsoleKey.D1;
+                switch (choice)
+                {
+                    case ConsoleKey.D1:
+                        ClearInsideSide();
+                        WriteAtJustifiedSide("KILL LIST CREATOR V1", 3);
+                        WriteAtJustifiedSide("Enter the name of a person you want to add", 5);
+                        WriteAt("->", _length + 6, 6);
+                        Console.SetCursorPosition(_length + 8, 6);
+                        string targetToAdd = Console.ReadLine();
+                        if (targetToAdd == "") 
+                        {
+                            listChoice = ConsoleKey.Escape;
+                            break;
+                        }
+                        Program.KillList.AddPerson(targetToAdd);
+                        WriteAtJustifiedSide("Person " + targetToAdd + " added", 10);
+                        WriteAtJustifiedSide("Press return to go back", 11);
+                        Console.ReadLine();
+                        listChoice = ConsoleKey.Escape;
+                        break;
+                    case ConsoleKey.Escape:
+                        break;
+                }
+            }
+            ClearInsideSide();
+            SideBox();
+            AtnArrows();
+        }
+
+        public static void UploadList()
+        {
+            Domain.UploadList ul = new Domain.UploadList(Program.KillList.PersonList, Program.BigDickBoi9000);
+            Task t = Task.Factory.StartNew(() =>
+           {
+                UnderBox();
+                WriteAtJustified("Kill List updated", 17);
+                Thread.Sleep(TimeSpan.FromSeconds(3));
+                ClearInsideDrawer();
+                UnderBox();
+           });
+        }
+
+        public static void Activate()
+        {
+            ClearInsideSide();
+            SideBox();
+            AtnArrows();
+            Domain.Activation a = new Domain.Activation(50, 0);
+            Armed = true;
+            ClearInsideSide();
+            SideBox();
+            AtnArrows();
+        }
+
+        public static void SelfD()
+        {
+            ConsoleKey listChoice = ConsoleKey.Spacebar;
+
+            SideBox();
+            AtnArrows();
+            WriteAtJustifiedSide("!! WARNING !!", 3);
+            WriteAtJustifiedSide("ARE YOU SURE YOU WANT TO", 5);
+            WriteAtJustifiedSide(">> SELF DESTRUCT <<", 6);
+            WriteAtJustifiedSide("THE ROBOT", 7);
+            WriteAtJustifiedSide("1-yes   2-no", 7);
+
+            listChoice = Console.ReadKey().Key;
+            switch (listChoice)
+            {
+                case ConsoleKey.D1:
+                    Console.Clear();
+                    Domain.Selfdestruct sd = new Domain.Selfdestruct();
+                    sd.Selfdestruction();
+                    Console.WriteLine("Self destruction completed.. \n" +
+                                      "Press return to reboot..");
+                    Console.ReadLine();
+                    PreLoginMenu();
+                    break;
+                case ConsoleKey.Escape:
+                    break;
+            }
+            ClearInsideSide();
+            SideBox();
+            AtnArrows();
         }
 
         static void WriteAt(string s, int x, int y)
@@ -236,6 +336,13 @@ namespace T800
             Console.Write(s);
         }
 
+        static void WriteAtJustifiedSide(string s, int y)
+        {
+            int justifiedX = Convert.ToInt32(Math.Floor((double)(_length - s.Length) / 2));
+            Console.SetCursorPosition(_length + justifiedX, yCoord + y);
+            Console.Write(s);
+        }
+
         static void ClearCurrentConsoleLine(int repX, int repY) //OVERLOADS TO MANUALLY REPOSITION THE CURSOR
         {
             Console.SetCursorPosition(repX, repY);
@@ -245,9 +352,62 @@ namespace T800
             Console.SetCursorPosition(0, currentLineCursor);
         }
 
-        static void SideBox(int choice)
+        static void AtnArrows()
         {
-            
+            if (!Arrows)
+            {
+                for (int x = 0; x < 7; x++)
+                {
+                    WriteAt("->", 49, 7 + x);
+                }
+                Arrows = true;
+            } else
+            {
+                for (int x = 0; x < 7; x++)
+                {
+                    WriteAt(" #", 49, 7 + x);
+                }
+                Arrows = false;
+            }
+        }
+
+        static void SideBox()
+        {
+            if (!SideOut)
+            {
+                for (int length = 1; length <= _length; length++)
+                {
+                    WriteAt("#", _length + length, 0);
+                    WriteAt("#", _length + length, _height);
+                    if (length == _length)
+                    {
+                        for (int height = 0; height <= _height; height++)
+                        {
+                            WriteAt("#", length + _length, height);
+                            Thread.Sleep(2);
+                        }
+                    }
+                    Thread.Sleep(4);
+                }
+                SideOut = true;
+            } else
+            {
+                for (int length = _length * 2; length > _length; length--)
+                {
+                    if (length == _length * 2)
+                    {
+                        for (int height = 0; height <= _height; height++)
+                        {
+                            WriteAt(" ", _length * 2, height);
+                            Thread.Sleep(2);
+                        }
+                    }
+                    WriteAt(" ", length, 0);
+                    WriteAt(" ", length, _height);
+                    Thread.Sleep(4);
+                }
+                SideOut = false;
+            }
         }
 
         static void UnderBox()
@@ -298,6 +458,28 @@ namespace T800
                 for (int y = 1; y < _height; y++)
                 {
                     WriteAt(" ", x, y);
+                }
+            }
+        }
+
+        static void ClearInsideSide()
+        {
+            for (int x = 1; x < _length; x++)
+            {
+                for (int y = 1; y < _height; y++)
+                {
+                    WriteAt(" ", x + _length, y);
+                }
+            }
+        }
+
+        static void ClearInsideDrawer()
+        {
+            for (int x = 1; x < _height; x++)
+            {
+                for (int y = 1; y < _length; y++)
+                {
+                    WriteAt(" ", x, y + _height);
                 }
             }
         }

@@ -51,7 +51,6 @@ namespace T800.Domain
                 Console.WriteLine("      MNNNNNO!    OOOOOOOOOOO    MMNNON!");
                 Console.WriteLine("        MNNNNO!    PPPPPPPPP    MMNON!");
                 Console.WriteLine("           OO!                   ON!");
-                Environment.Exit(0);
             }
         }
 public class ProgressBar : IDisposable, IProgress<double>

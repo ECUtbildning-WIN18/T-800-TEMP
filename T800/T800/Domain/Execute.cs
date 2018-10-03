@@ -52,7 +52,7 @@ namespace T800.Domain
                     {
                         int fiddyfiddy = r.Next(1, 2);
                         if (fiddyfiddy == 1) return true;
-                        else return false;
+                        return false;
                     })())
                     {
                         CurrentActivity(21, p);
@@ -72,7 +72,7 @@ namespace T800.Domain
                 int i = r.Next(1, 100);
                 if (i == 100)
                     return true;
-                else return false;
+                return false;
             };
             CurrentActivity(31, p);
             while (p.IsAlive)
